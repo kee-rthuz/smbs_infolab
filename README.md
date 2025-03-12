@@ -1,4 +1,4 @@
-FunGallery
+FunGallery 
 FunGallery is a multi-page, interactive image gallery where users can explore, upload, and engage with fun images. This project showcases frontend skills, including UI/UX, animations, state management, API handling, and performance optimization.
 
 Features & Functionalities
