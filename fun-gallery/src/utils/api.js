@@ -16,7 +16,7 @@ export const fetchUnsplashImages = async () => {
 };
 
 // Fetch images from Pixabay based on category
-export const fetchPixabayImages = async (page = 1, category = "All", searchQuery = "", sortBy = "date") => {
+export const fetchPixabayImages = async (page = 1, category = "All", searchQuery = "", sortBy = "latest") => {
   try {
     let url = `https://pixabay.com/api/?key=${PIXABAY_API_KEY}&per_page=12&page=${page}&order=${sortBy}`;
 
@@ -56,4 +56,3 @@ export const fetchPixabayImageById = async (id) => {
     return null;
   }
 };
-
