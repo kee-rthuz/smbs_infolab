@@ -7,7 +7,6 @@ const ImageDetails = () => {
   const location = useLocation();
   const { image } = location.state;
 
-  // Load like and comment counts from local storage
   const [likeCount, setLikeCount] = useState(() => {
     return Number(localStorage.getItem(`likeCount-${image?.id}`)) || 0;
   });
@@ -30,6 +29,20 @@ const ImageDetails = () => {
     if (image?.id) {
       localStorage.setItem(`likeCount-${image.id}`, likeCount);
       localStorage.setItem(`liked-${image.id}`, liked);
+
+      // Update liked images in local storage
+      const likedImages = JSON.parse(localStorage.getItem("likedImages")) || [];
+      if (liked) {
+        if (!likedImages.includes(image.webformatURL || image.urls?.full)) {
+          likedImages.push(image.webformatURL || image.urls?.full);
+        }
+      } else {
+        const index = likedImages.indexOf(image.webformatURL || image.urls?.full);
+        if (index > -1) {
+          likedImages.splice(index, 1);
+        }
+      }
+      localStorage.setItem("likedImages", JSON.stringify(likedImages));
     }
   }, [likeCount, liked, image]);
 
@@ -37,7 +50,6 @@ const ImageDetails = () => {
     return <div>Image not found</div>;
   }
 
-  // Handle Like button click
   const handleLikeClick = () => {
     if (liked) {
       setLikeCount((prev) => prev - 1);
@@ -47,12 +59,10 @@ const ImageDetails = () => {
     setLiked(!liked);
   };
 
-  // Handle Comment button click (toggle input field)
   const handleCommentClick = () => {
     setShowCommentInput(!showCommentInput);
   };
 
-  // Handle Comment submission (increase count and store locally)
   const handleCommentSubmit = () => {
     if (comment.trim() !== "") {
       setCommentCount((prev) => prev + 1);
@@ -69,22 +79,23 @@ const ImageDetails = () => {
           alt={image.tags || image.alt_description || "Image"}
           className="w-full rounded-lg mb-4"
         />
-        <h2 className="text-2xl font-bold mb-2">{image.user || image.user?.name || "Unknown"}</h2>
+        <h2 className="text-2xl font-bold mb-2">
+          {typeof image.user === "object" ? image.user?.name || "Unknown" : image.user}
+        </h2>
         <p className="text-gray-700 dark:text-gray-300">{image.description || "No description available"}</p>
 
-        {/* Like & Comment Section */}
         <div className="flex items-center mt-4 space-x-6">
           <motion.button
             className={`flex items-center space-x-2 ${
               liked ? "text-red-500" : "text-gray-700 dark:text-gray-300"
             } hover:text-red-500`}
             onClick={handleLikeClick}
-            whileTap={{ scale: 0.8 }} // Animation when clicked
+            whileTap={{ scale: 0.8 }}
           >
             <motion.div animate={{ scale: liked ? [1, 1.4, 1] : 1 }}>
               <Heart className={`w-6 h-6 ${liked ? "fill-red-500" : "fill-none"}`} />
             </motion.div>
-            <span>Like ({likeCount})</span> {/* Show total like count */}
+            <span>Like ({likeCount})</span>
           </motion.button>
 
           <button
@@ -92,11 +103,10 @@ const ImageDetails = () => {
             onClick={handleCommentClick}
           >
             <MessageCircle className="w-6 h-6" />
-            <span>Comment ({commentCount})</span> {/* Show total comment count */}
+            <span>Comment ({commentCount})</span>
           </button>
         </div>
 
-        {/* Comment Input Field (Visible When Clicked) */}
         {showCommentInput && (
           <div className="mt-4">
             <input

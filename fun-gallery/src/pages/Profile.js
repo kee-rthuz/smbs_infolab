@@ -4,7 +4,6 @@ import { ImageContext } from "../context/ImageContext";
 const Profile = () => {
   const { uploadedImages } = useContext(ImageContext);
   const [user, setUser] = useState(() => {
-    // Load user data from local storage
     const savedUser = JSON.parse(localStorage.getItem("userProfile")) || {
       name: "John Doe",
       email: "johndoe@example.com",
@@ -17,13 +16,11 @@ const Profile = () => {
   const [likedImages, setLikedImages] = useState([]);
 
   useEffect(() => {
-    // Load liked images from local storage
     const liked = JSON.parse(localStorage.getItem("likedImages")) || [];
     setLikedImages(liked);
   }, []);
 
   useEffect(() => {
-    // Save user data to local storage whenever it changes
     localStorage.setItem("userProfile", JSON.stringify(user));
   }, [user]);
 
@@ -33,7 +30,6 @@ const Profile = () => {
 
   const handleSave = () => {
     setEditing(false);
-    // Save the updated user data to local storage
     localStorage.setItem("userProfile", JSON.stringify(user));
   };
 
@@ -116,7 +112,6 @@ const Profile = () => {
         )}
       </div>
 
-      {/* User-Uploaded Images */}
       <div className="mt-4">
         <h2 className="text-xl font-bold mb-2">Uploaded Images</h2>
         <div className="flex flex-wrap justify-center">
@@ -129,7 +124,6 @@ const Profile = () => {
         </div>
       </div>
 
-      {/* Liked Images */}
       <div className="mt-4">
         <h2 className="text-xl font-bold mb-2">Liked Images</h2>
         <div className="flex flex-wrap justify-center">
