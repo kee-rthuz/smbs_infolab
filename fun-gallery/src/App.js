@@ -7,6 +7,7 @@ import Profile from "./pages/Profile";
 import Navbar from "./components/Navbar";
 import ImageDetails from "./pages/ImageDetails";
 import { ImageProvider } from "./context/ImageContext";
+import NotFoundPage from "./pages/NotFound";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
           <Route path="/upload" element={<Upload />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/image/:id" element={<ImageDetails />} />
+          <Route path="/notfound" element={<NotFoundPage />} />
         </Routes>
       </Router>
     </ImageProvider>
