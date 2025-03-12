@@ -1,52 +1,30 @@
-import { motion } from "framer-motion";
-import { Link } from "react-router-dom";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const NotFound = () => {
+const NotFoundPage = () => {
+  const navigate = useNavigate();
+
+  const goHome = () => {
+    navigate('/');
+  };
+
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-white">
-      <motion.h1 
-        className="text-6xl font-bold"
-        initial={{ scale: 0 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 0.5, ease: "easeOut" }}
-      >
-        404 😢
-      </motion.h1>
-      <motion.p 
-        className="text-xl mt-4"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 1 }}
-      >
-        Oops! The page you're looking for doesn't exist.
-      </motion.p>
-
-      {/* Fun Easter Egg */}
-      <motion.img
-        src="https://media.giphy.com/media/l2JehQ2GitHGdVG9y/giphy.gif"
-        alt="Lost?"
-        className="w-64 h-64 mt-6 rounded-lg shadow-lg"
-        initial={{ y: -20 }}
-        animate={{ y: 20 }}
-        transition={{
-          duration: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-          ease: "easeInOut",
-        }}
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100">
+      <h1 className="text-4xl font-bold text-gray-800 mb-4">Oops! Page Not Found</h1>
+      <p className="text-gray-600 mb-8">Sorry, the page you are looking for does not exist.</p>
+      <img
+        src="https://http.cat/404"
+        alt="404 Error"
+        className="mb-8 rounded-lg shadow-lg"
       />
-
-      <Link to="/">
-        <motion.button
-          className="mt-6 px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition"
-          whileHover={{ scale: 1.1 }}
-          whileTap={{ scale: 0.9 }}
-        >
-          Go Back Home 🏠
-        </motion.button>
-      </Link>
+      <button
+        onClick={goHome}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        Go Back Home
+      </button>
     </div>
   );
 };
 
-export default NotFound;
+export default NotFoundPage;
