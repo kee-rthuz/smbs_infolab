@@ -11,7 +11,7 @@ import NotFoundPage from "./pages/NotFound";
 
 function App() {
   return (
-    <ImageProvider>
+    <ImageProvider>  
       <Router>
         <Navbar />
         <Routes>
