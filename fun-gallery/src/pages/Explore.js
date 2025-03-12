@@ -8,7 +8,7 @@ const Explore = () => {
   const [page, setPage] = useState(1);
   const [category, setCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
-  const [sortBy, setSortBy] = useState("date");
+  const [sortBy, setSortBy] = useState("latest");
   const [hasMore, setHasMore] = useState(true);
   const navigate = useNavigate();
 
@@ -112,14 +112,14 @@ const Explore = () => {
 
       <div className="flex justify-center space-x-4 p-4">
         <button
-          onClick={() => setSortBy("date")}
-          className={`px-4 py-2 rounded ${sortBy === "date" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+          onClick={() => setSortBy("latest")}
+          className={`px-4 py-2 rounded ${sortBy === "latest" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
         >
           Date
         </button>
         <button
-          onClick={() => setSortBy("likes")}
-          className={`px-4 py-2 rounded ${sortBy === "likes" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
+          onClick={() => setSortBy("popular")}
+          className={`px-4 py-2 rounded ${sortBy === "popular" ? "bg-blue-500 text-white" : "bg-gray-300"}`}
         >
           Likes
         </button>
